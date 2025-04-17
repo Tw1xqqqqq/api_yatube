@@ -5,7 +5,7 @@ from .views import PostViewSet, GroupViewSet, CommentViewSet
 
 router = SimpleRouter()
 router.register("posts", PostViewSet, basename="posts")
-router.register("group", GroupViewSet, basename="group")
+router.register("groups", GroupViewSet, basename="groups")
 router.register(
     r"posts/(?P<post_id>\d+)/comments",
     CommentViewSet,
