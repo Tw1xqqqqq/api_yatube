@@ -3,6 +3,7 @@ from posts.models import Post, Group, Comment
 from .serlializers import PostSerializer, GroupSerializer, CommentSerializer
 from django.shortcuts import get_object_or_404
 
+
 class PostViewSet(viewsets.ModelViewSet):
 
     queryset = Post.objects.all()

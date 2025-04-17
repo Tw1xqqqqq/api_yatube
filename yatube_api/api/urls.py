@@ -6,7 +6,10 @@ from .views import PostViewSet, GroupViewSet, CommetnViewSet
 router = SimpleRouter()
 router.register("posts", PostViewSet, basename="posts")
 router.register("group", GroupViewSet, basename="group")
-router.register(r"posts/(?P<post_id>\d+)/comments", CommetnViewSet, basename="comments")
+router.register(
+    r"posts/(?P<post_id>\d+)/comments", 
+    CommetnViewSet, basename="comments"
+    )
 
 
 urlpatterns = [
