@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from posts.models import Post, Group, Comment
 from .serlializers import PostSerializer, GroupSerializer, CommentSerializer
 from django.shortcuts import get_object_or_404
+from rest_framework.response import Response
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -11,6 +12,24 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+    
+    def update(self, request, *args, **kwargs):
+        post = self.get_object()
+        if post.author != self.request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+        return super().update(request, *args, **kwargs)
+    
+    def partial_update(self, request, *args, **kwargs):
+        post = self.get_object()
+        if post.author != self.request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+        return super().update(request, *args, **kwargs)
+    
+    def destroy(self, request, *args, **kwargs):
+        post = self.get_object()
+        if post.author != self.request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+        return super().update(request, *args, **kwargs)
 
 
 class GroupViewSet(viewsets.ReadOnlyModelViewSet):
@@ -32,3 +51,21 @@ class CommentViewSet(viewsets.ModelViewSet):
         return get_object_or_404(
             Post, pk=self.kwargs.get("post_id")
         )
+    
+    def update(self, request, *args, **kwargs):
+        post = self.get_object()
+        if post.author != self.request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+        return super().update(request, *args, **kwargs)
+    
+    def partial_update(self, request, *args, **kwargs):
+        post = self.get_object()
+        if post.author != self.request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+        return super().update(request, *args, **kwargs)
+    
+    def destroy(self, request, *args, **kwargs):
+        post = self.get_object()
+        if post.author != self.request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+        return super().update(request, *args, **kwargs)
