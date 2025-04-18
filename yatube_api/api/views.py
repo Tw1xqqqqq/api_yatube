@@ -17,18 +17,18 @@ class PostViewSet(viewsets.ModelViewSet):
         post = self.get_object()
         if post.author != self.request.user:
             return Response(status=status.HTTP_403_FORBIDDEN)
-        return super().update(request, *args, **kwargs)
+        return super().update({"detail": "Это не ваш пост."}, request, *args, **kwargs)
     
     def partial_update(self, request, *args, **kwargs):
         post = self.get_object()
         if post.author != self.request.user:
-            return Response(status=status.HTTP_403_FORBIDDEN)
+            return Response({"detail": "Это не ваш пост."}, status=status.HTTP_403_FORBIDDEN)
         return super().update(request, *args, **kwargs)
     
     def destroy(self, request, *args, **kwargs):
         post = self.get_object()
         if post.author != self.request.user:
-            return Response(status=status.HTTP_403_FORBIDDEN)
+            return Response({"detail": "Это не ваш пост."}, status=status.HTTP_403_FORBIDDEN)
         return super().update(request, *args, **kwargs)
 
 
@@ -56,16 +56,16 @@ class CommentViewSet(viewsets.ModelViewSet):
         post = self.get_object()
         if post.author != self.request.user:
             return Response(status=status.HTTP_403_FORBIDDEN)
-        return super().update(request, *args, **kwargs)
+        return super().update({"detail": "Это не ваш комментарий."}, request, *args, **kwargs)
     
     def partial_update(self, request, *args, **kwargs):
         post = self.get_object()
         if post.author != self.request.user:
             return Response(status=status.HTTP_403_FORBIDDEN)
-        return super().update(request, *args, **kwargs)
+        return super().update({"detail": "Это не ваш комментарий."}, request, *args, **kwargs)
     
     def destroy(self, request, *args, **kwargs):
         post = self.get_object()
         if post.author != self.request.user:
             return Response(status=status.HTTP_403_FORBIDDEN)
-        return super().update(request, *args, **kwargs)
+        return super().update({"detail": "Это не ваш комментарий."}, request, *args, **kwargs)
