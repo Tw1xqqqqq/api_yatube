@@ -13,10 +13,6 @@ class PostViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
-    def get_queryset(self):
-        post_id = self.kwargs.get("post_id")
-        return Comment.objects.filter(post_id=post_id)
-
     def update(self, request, *args, **kwargs):
         post = self.get_object()
         if post.author != self.request.user:
@@ -59,6 +55,10 @@ class CommentViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         post_id = self.kwargs.get("post_id")
         serializer.save(author=self.request.user, post_id=post_id)
+
+    def get_queryset(self):
+        post_id = self.kwargs.get("post_id")
+        return Comment.objects.filter(post_id=post_id)
 
     def get_post(self):
         return get_object_or_404(Post, pk=self.kwargs.get("post_id"))
